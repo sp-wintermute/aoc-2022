@@ -49,3 +49,24 @@ for command in commands:
         trace[tail_pos[0], tail_pos[1]] = 1
         
 print(trace.sum())
+
+######## Part 2 ########
+trace = np.zeros([500, 500])
+head_pos = [250, 250]
+tail_pos = [[250, 250] for _ in range(9)]
+trace[tail_pos[-1][0], tail_pos[-1][1]] = 1
+
+for command in commands:
+    axis, vec, steps = parse_command(command)
+    for move in range(1, steps + 1):
+        head_pos[axis] += vec
+        for i in range(len(tail_pos)):
+            if i == 0:
+                lead_pos = head_pos
+            else:
+                lead_pos = tail_pos[i - 1]
+            tail_pos[i] = follow(lead_pos, tail_pos[i])
+        trace[tail_pos[-1][0], tail_pos[-1][1]] = 1
+    
+        
+print(trace.sum())
