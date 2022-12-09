@@ -36,3 +36,15 @@ for di in ls:
         sizes[di] = recursive_sum(di)
 
 print(sum(sizes.values()))
+
+
+############## Part 2 ##############
+sizes = {}
+for di in ls:
+    sizes[di] = recursive_sum(di)
+        
+space_to_free = 30000000 - (70000000 - sizes["/"])
+for k in sorted(sizes, key=lambda j: sizes[j]):
+    if sizes[k] >= space_to_free:
+        print(k, sizes[k])
+        break
